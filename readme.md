@@ -31,7 +31,7 @@ il suffit de le déposer à la racine d'un hébergement.
 
 ## Mise à jour hebdomadaire
 
-Une tâche planifiée Vibe Code exécute la mise à jour chaque mardi à minuit
+Une tâche planifiée Vibe Work exécute la mise à jour chaque mardi à minuit
 (heure de Paris) :
 
 1. Déterminer la plage à couvrir : du jour même à J+60.
