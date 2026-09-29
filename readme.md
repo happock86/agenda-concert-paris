@@ -2,7 +2,9 @@
 
 Page HTML autonome listant les concerts rock, indé, punk, cold wave, électro et
 hip-hop dans les petites salles de Paris et de sa proche banlieue (rayon ~10 km).
-Le fichier `index.html` est autonome : aucun asset externe, aucun JavaScript ;
+Le fichier `index.html` est autonome : aucun asset externe ; tri par colonne
+Date, Lieu et Style, et surbrillance des concerts du jour via un peu de
+JavaScript inclus ;
 il suffit de le déposer à la racine d'un hébergement.
 
 ## Contenu
