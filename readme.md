@@ -53,3 +53,11 @@ brouillon hebdomadaire, committer à la racine, déployer sur l'hébergement.
 
 Dépôt du fichier `index.html` à la racine du site via FTP, sous ce nom exact.
 Page statique : aucune configuration serveur requise.
+
+Le script `deploy.sh` effectue l'upload (nécessite `curl`) :
+
+    FTP_HOST=ftp.example.com FTP_USER=monuser FTP_PASS=monmotdepasse ./deploy.sh
+
+Variables optionnelles : `FTP_PORT` (défaut 21), `FTP_PATH` (défaut `/`),
+`FTP_SECURE=1` pour FTPS. Les identifiants sont passés par variables
+d'environnement et ne doivent jamais être committés.
