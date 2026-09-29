@@ -19,7 +19,8 @@ il suffit de le déposer à la racine d'un hébergement.
 
 ## Critères de sélection
 
-- Salles du périmètre uniquement : Le Chinois et La Marbrerie (Montreuil),
+- Salles du périmètre uniquement : Le Chinois (Montreuil), La Marbrerie
+  (Montreuil),
   Le Zéralda (Bagnolet), La Pointe Lafayette, La Maroquinerie, Le Badaboum,
   Le Supersonic, Point Éphémère, Le Hasard Ludique, Petit Bain, Le Trianon,
   La Station — Gare des Mines, Le Consulat Voltaire, Le Cabaret Sauvage.
