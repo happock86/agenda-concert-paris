@@ -71,6 +71,15 @@ coration: none; }
     text-align: center; padding: 24px; color: #5d6678; font-size: 0.8rem;
     border-top: 1px solid #232838;
   }
+  tr.past { display: none; }
+  body.show-past tr.past { display: table-row; }
+  .date-filter {
+    display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+    max-width: 1080px; margin: 0 auto; padding: 0 18px;
+    font-size: 0.85rem; color: #9aa3b5;
+  }
+  .date-filter label { cursor: pointer; user-select: none; }
+  .date-filter input { accent-color: #ffd166; cursor: pointer; }
   tr.today td { background: #2b2410 !important; border-top-color: #4d421a; }
   tr.today:hover td { background: #372e14 !important; }
   th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
@@ -94,6 +103,8 @@ coration: none; }
   <p class="filters">Périmètre : Paris intra-muros et banlieue dans un rayon d'environ 10 km (Montreuil, Bagnolet…). Compilé le 28 septembre 2026 à partir des agendas publics des salles et des sources citées ; le mois de septembre est couvert à partir de cette date (à partir du lundi 28 pour la présente édition). Salles couvertes : Le Chinois, La Pointe Lafayette, La Maroquinerie, Le Badaboum, Le Zéralda, Le Supersonic, Point Éphémère, Le Hasard Ludique, Petit Bain, La Marbrerie, Le Trianon, La Station — Gare des Mines, Le Consulat Voltaire, Le Cabaret Sauvage.</p>
 </header>
 
+
+<p class="date-filter"><input type="checkbox" id="show-past" /><label for="show-past">Afficher les concerts passés</label></p>
 
 <main>
 
@@ -349,6 +360,8 @@ style">Rock indé (entrée libre)</td><td class="price">Entrée libre</td><td><a
         row.dataset.date = d.getTime();
         if (d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() === todayKey) {
           row.classList.add("today");
+        } else if (d < today) {
+          row.classList.add("past");
         }
       }
     });
@@ -378,6 +391,12 @@ style">Rock indé (entrée libre)</td><td class="price">Entrée libre</td><td><a
       });
     });
   });
+  var checkbox = document.getElementById("show-past");
+  if (checkbox) {
+    checkbox.addEventListener("change", function () {
+      document.body.classList.toggle("show-past", checkbox.checked);
+    });
+  }
 })();
 </script>
 </body>
