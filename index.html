@@ -71,6 +71,13 @@ coration: none; }
     text-align: center; padding: 24px; color: #5d6678; font-size: 0.8rem;
     border-top: 1px solid #232838;
   }
+  tr.today td { background: #2b2410 !important; border-top-color: #4d421a; }
+  tr.today:hover td { background: #372e14 !important; }
+  th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+  th.sortable:hover { color: #e6e8ee; }
+  th.sortable::after { content: " ⇅"; font-size: 0.7rem; color: #5d6678; }
+  th.sortable.sort-asc::after { content: " ▲"; color: #ffd166; }
+  th.sortable.sort-desc::after { content: " ▼"; color: #ffd166; }
   @media (max-width: 640px) {
     table, thead, tbody, tr, td, th { display: block; width: 100%; }
     thead { display: none; }
@@ -96,7 +103,7 @@ coration: none; }
 
 <table>
   <thead>
-    <tr><th>Date</th><th>Groupe / Artiste</th><th>Lieu</th><th>Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
+    <tr><th class="sortable" data-key="date">Date</th><th>Groupe / Artiste</th><th class="sortable" data-key="venue">Lieu</th><th class="sortable" data-key="style">Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
   </thead>
   <tbody>
     <tr><td class="date">lun. 28 sept.</td><td class="band"><a href="https://open.spotify.com/search/DICE%20band" target="_blank" rel="noopener">DICE</a> • <a href="https://open.spotify.com/search/The%20Velvet%20Club" target="_blank" rel="noopener">The Velvet Club</a> • <a href="https://open.spotify.com/search/Monitors%20band" target="_blank" rel="noopener">Monitors</a></td><td class="venue">Le Supersonic, Paris 12e</td><td class="style">Rock indé (entrée libre)</td><td class="price">Entrée libre</td><td><a class="link-btn" href="https://supersonic-records.fr/pages/programmation" target="_blank" rel="noopener">Supersonic</a></td></tr>
@@ -117,7 +124,7 @@ EN-SHEMIE-of-SUUNS-MOSSAI-MOSSAI" target="_blank" rel="noopener">Billetterie Tem
 
 <table>
   <thead>
-    <tr><th>Date</th><th>Groupe / Artiste</th><th>Lieu</th><th>Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
+    <tr><th class="sortable" data-key="date">Date</th><th>Groupe / Artiste</th><th class="sortable" data-key="venue">Lieu</th><th class="sortable" data-key="style">Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
   </thead>
   <tbody>
     
@@ -226,7 +233,7 @@ style">Rock indé (entrée libre)</td><td class="price">Entrée libre</td><td><a
 
 <table>
   <thead>
-    <tr><th>Date</th><th>Groupe / Artiste</th><th>Lieu</th><th>Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
+    <tr><th class="sortable" data-key="date">Date</th><th>Groupe / Artiste</th><th class="sortable" data-key="venue">Lieu</th><th class="sortable" data-key="style">Style</th><th>Prix</th><th>Billetterie / Source</th></tr>
   </thead>
   <tbody>
         <tr><td class="date">dim. 1 nov.</td><td class="band"><a href="https://open.spotify.com/search/Messa" target="_blank" rel="noopener">Messa</a> + <a href="https://open.spotify.com/search/The%20Night%20Eternal" target="_blank" rel="noopener">The Night Eternal</a></td><td class="venue">La Marbrerie, Montreuil</td><td class="style">Doom / rock</td><td class="price">—</td><td><a class="link-btn" href="https://lamarbrerie.fr/agenda/" target="_blank" rel="noopener">La Marbrerie</a></td></tr>
@@ -299,5 +306,79 @@ style">Rock indé (entrée libre)</td><td class="price">Entrée libre</td><td><a
   Agenda des concerts — Paris &amp; proche banlieue. Mise à jour hebdomadaire établie à partir des agendas publics des salles et des sources lylo.fr, infoconcert, bandsintown, parisbouge et concerts.paris. Dernière mise à jour : 28 septembre 2026 — fenêtre couverte du 28 septembre au 27 novembre 2026.
 </footer>
 
+<script>
+(function () {
+  var MONTHS = { "janv.": 0, "f\u00e9vr.": 1, "mars": 2, "avr.": 3, "mai": 4, "juin": 5,
+    "juil.": 6, "ao\u00fbt": 7, "sept.": 8, "oct.": 9, "nov.": 10, "d\u00e9c.": 11 };
+
+  function tableYear(table) {
+    var el = table;
+    while (el && (el = el.previousElementSibling)) {
+      if (el.tagName === "H2") {
+        var m = el.textContent.match(/(\d{4})/);
+        if (m) return parseInt(m[1], 10);
+      }
+    }
+    return new Date().getFullYear();
+  }
+
+  function parseDate(text, year) {
+    var m = text.match(/(\d{1,2})\s+([\w\u00e9]+)/);
+    if (!m) return null;
+    var day = parseInt(m[1], 10);
+    var mon = MONTHS[m[2]];
+    if (mon === undefined) return null;
+    return new Date(year, mon, day);
+  }
+
+  var today = new Date();
+  today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  var todayKey = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+
+  document.querySelectorAll("main table").forEach(function (table) {
+    var year = tableYear(table);
+    var tbody = table.querySelector("tbody");
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
+
+    rows.forEach(function (row) {
+      var cells = row.querySelectorAll("td");
+      var dateCell = cells[0];
+      if (!dateCell) return;
+      var d = parseDate(dateCell.textContent, year);
+      if (d) {
+        row.dataset.date = d.getTime();
+        if (d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() === todayKey) {
+          row.classList.add("today");
+        }
+      }
+    });
+
+    table.querySelectorAll("th.sortable").forEach(function (th) {
+      th.addEventListener("click", function () {
+        var key = th.dataset.key;
+        var colIndex = key === "date" ? 0 : (key === "venue" ? 2 : 3);
+        var asc = th.classList.contains("sort-asc");
+        table.querySelectorAll("th.sortable").forEach(function (h) {
+          h.classList.remove("sort-asc", "sort-desc");
+        });
+        th.classList.add(asc ? "sort-desc" : "sort-asc");
+        var dir = asc ? -1 : 1;
+        rows.sort(function (a, b) {
+          var va, vb;
+          if (key === "date") {
+            va = parseFloat(a.dataset.date) || 0;
+            vb = parseFloat(b.dataset.date) || 0;
+            return (va - vb) * dir;
+          }
+          va = (a.children[colIndex] || {}).textContent || "";
+          vb = (b.children[colIndex] || {}).textContent || "";
+          return va.localeCompare(vb, "fr", { sensitivity: "base" }) * dir;
+        });
+        rows.forEach(function (r) { tbody.appendChild(r); });
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
