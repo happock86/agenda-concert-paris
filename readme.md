@@ -23,7 +23,8 @@ il suffit de le déposer à la racine d'un hébergement.
 
 - Salles du périmètre uniquement : Le Chinois (Montreuil), La Marbrerie
   (Montreuil),
-  Le Zéralda (Bagnolet), La Pointe Lafayette, La Maroquinerie, Le Badaboum,
+  Le Zéralda (Bagnolet), Le Bal Chavaux (Montreuil), La Pointe Lafayette,
+  La Maroquinerie, Le Badaboum,
   Le Supersonic, Point Éphémère, Le Hasard Ludique, Petit Bain, Le Trianon,
   La Station — Gare des Mines, Le Consulat Voltaire, Le Cabaret Sauvage.
 - Genres : rock, rock indé, new wave, cold wave, techno / électro, hip-hop,
@@ -38,7 +39,7 @@ Une tâche planifiée Vibe Work exécute la mise à jour chaque mardi à minuit
 (heure de Paris) :
 
 1. Déterminer la plage à couvrir : du jour même à J+60.
-2. Consulter les agendas des 14 salles ainsi que lylo.fr, infoconcert,
+2. Consulter les agendas des 15 salles ainsi que lylo.fr, infoconcert,
    bandsintown, parisbouge et concerts.paris.
 3. Ajouter les nouveaux concerts avec liens d'écoute, prix et billetterie.
 4. Retirer les concerts passés, corriger changements de salle et annulations,
