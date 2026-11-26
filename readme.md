@@ -36,7 +36,7 @@ il suffit de le déposer à la racine d'un hébergement.
 ## Mise à jour hebdomadaire
 
 Une tâche planifiée Vibe Work exécute la mise à jour chaque mardi à minuit
-(heure de Paris) :
+(heure de Paris), de bout en bout :
 
 1. Déterminer la plage à couvrir : du jour même à J+60.
 2. Consulter les agendas des 15 salles ainsi que lylo.fr, infoconcert,
@@ -44,11 +44,10 @@ Une tâche planifiée Vibe Work exécute la mise à jour chaque mardi à minuit
 3. Ajouter les nouveaux concerts avec liens d'écoute, prix et billetterie.
 4. Retirer les concerts passés, corriger changements de salle et annulations,
    actualiser les compteurs par mois.
-5. Envoyer un brouillon Gmail à david.paour@gmail.com avec le fichier
-   `index.html` à jour (envoi du brouillon manuel).
-
-Intégration dans ce dépôt : télécharger la pièce jointe `index.html` du
-brouillon hebdomadaire, committer à la racine, déployer sur l'hébergement.
+5. Committer le fichier `index.html` à jour à la racine du dépôt et le
+   déployer sur l'hébergement (voir `deploy.sh`).
+6. Envoyer l'email à david.paour@gmail.com avec le fichier `index.html` à
+   jour en pièce jointe — envoi direct, sans passer par un brouillon.
 
 ## Hébergement
 
